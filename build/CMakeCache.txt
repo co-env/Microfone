@@ -275,6 +275,9 @@ USE_STATIC_MBEDTLS_LIBRARY:BOOL=ON
 WINPTY:FILEPATH=C:/Program Files/Git/usr/bin/winpty.exe
 
 //Dependencies for the target
+__idf_BME280_driver_LIB_DEPENDS:STATIC=general;__idf_cxx;general;__idf_newlib;general;__idf_freertos;general;__idf_heap;general;__idf_log;general;__idf_soc;general;__idf_esp_rom;general;__idf_esp_common;general;__idf_xtensa;general;__idf_esp32;
+
+//Dependencies for the target
 __idf_app_trace_LIB_DEPENDS:STATIC=general;__idf_cxx;general;__idf_newlib;general;__idf_freertos;general;__idf_heap;general;__idf_log;general;__idf_soc;general;__idf_esp_rom;general;__idf_esp_common;general;__idf_xtensa;general;__idf_esp32;general;gcov;general;c;general;m;general;gcc;
 
 //Dependencies for the target
