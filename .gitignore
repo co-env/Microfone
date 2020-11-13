@@ -55,6 +55,7 @@ dkms.conf
 
 # Build files
 build/
+example/build/
 
 # Specific SDKCONFIG
 sdkconfig*
