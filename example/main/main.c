@@ -20,17 +20,22 @@ const adc_channel_t mic_channel = ADC_CHANNEL_6;     //GPIO34 in ADC1
 // const double dBAnalogModerate = 12;
 // const double dBAnalogLoud = 17;
 
+static void sound_sensor_task(void *arg) {
+    ESP_LOGI(TAG, "Mic main task initializing...");
 
-void app_main()
-{
-    adc1_config(mic_channel);
+    if (xSemaphoreTake(xSemaphore, portMAX_DELAY ) == pdTRUE ) {
+        adc1_config(mic_channel);
+        xSemaphoreGive(xSemaphore);
+    }
 
-    //Continuously sample ADC1
-    while (1) {
-
+    while(1) {
         (void)get_voltage_variation(mic_channel);
         vTaskDelay(pdMS_TO_TICKS(100));
     }
+}
+
+void app_main() {
+    xTaskCreate(sound_sensor_task, "sound_sensor_main_task", 1024 * 2, (void *)0, 15, NULL);
 }
 
 
