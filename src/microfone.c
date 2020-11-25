@@ -32,3 +32,18 @@ uint32_t get_voltage_variation(adc_channel_t ch){
     printf("Raw: %d\tVoltage: %d mV\n", adc_reading, voltage_mv);
     return voltage_mv;
 }
+
+void ldr_task (void* arg){
+    adc1_config(mic_channel);
+    printf("max voltage %d\t",esp_adc_cal_raw_to_voltage(4095,adc_chars));
+    printf("vref:%d\n",adc_chars->vref);
+    //Continuously sample ADC1
+    while (1) {
+
+        uint32_t voltage = get_voltage(mic_channel);
+        float rldr = (voltage*9800.0)/(3600.0-voltage);
+        float lux = 500000.0/rldr;
+        printf("Lux: %f\n",lux);
+        vTaskDelay(pdMS_TO_TICKS(100));
+    }
+}

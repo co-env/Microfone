@@ -18,6 +18,7 @@ uint32_t get_voltage(adc_channel_t ch);
 
 uint32_t get_voltage_variation(adc_channel_t ch);
 
+void ldr_task (void* arg);
 
 /**
  * @brief Function for reading the ambient sound level 
