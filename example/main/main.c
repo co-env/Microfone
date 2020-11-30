@@ -11,6 +11,10 @@
 
 #include "microfone.h"
 
+#include "esp_log.h"
+
+#include <math.h>
+
 // #define RPOT            61.4
 // #define MIC_GAIN        20 * log10((RPOT+22)+1) // ganho final do módulo em dB
 
@@ -20,16 +24,20 @@ const adc_channel_t mic_channel = ADC_CHANNEL_6;     //GPIO34 in ADC1
 // const double dBAnalogModerate = 12;
 // const double dBAnalogLoud = 17;
 
+static const char* TAG = "MIC-Example";
+
 static void sound_sensor_task(void *arg) {
     ESP_LOGI(TAG, "Mic main task initializing...");
 
-    if (xSemaphoreTake(xSemaphore, portMAX_DELAY ) == pdTRUE ) {
-        adc1_config(mic_channel);
-        xSemaphoreGive(xSemaphore);
-    }
+    // if (xSemaphoreTake(xSemaphore, portMAX_DELAY ) == pdTRUE ) {
+    //     adc1_config(mic_channel);
+    //     xSemaphoreGive(xSemaphore);
+    // }
+    adc1_config(mic_channel);
 
     while(1) {
-        (void)get_voltage_variation(mic_channel);
+        db = get_noise_level_db(mic_channel);
+        ESP_LOGW(TAG, "DB = %3f", db);
         vTaskDelay(pdMS_TO_TICKS(100));
     }
 }

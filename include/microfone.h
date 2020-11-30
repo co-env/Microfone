@@ -1,6 +1,12 @@
-// #include "fastmath.h" //para fazer conta com log
+#ifndef __MICROFONE_H__
+#define __MICROFONE_H__
+
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "fastmath.h" //para fazer conta com log
+#include <esp_types.h>
+
 #include "driver/gpio.h"
 #include "driver/adc.h"
 #include "esp_adc_cal.h"
@@ -18,7 +24,9 @@ uint32_t get_voltage(adc_channel_t ch);
 
 uint32_t get_voltage_variation(adc_channel_t ch);
 
-void ldr_task (void* arg);
+float get_noise_level_db(adc_channel_t ch);
+
+// void ldr_task (void* arg);
 
 /**
  * @brief Function for reading the ambient sound level 
@@ -27,3 +35,5 @@ void ldr_task (void* arg);
 // uint32_t get_sound_level(adc_channel_t ch);
 
 /*@*/
+
+#endif  // __MICROFONE_H__
